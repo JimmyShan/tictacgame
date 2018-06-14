@@ -12,10 +12,6 @@ class Game:
     def __init__(self):
         self._board = [' '] * 9
 
-    def play_move(self, player, move):
-        """Returns a empty slot that player can take"""
-        pass
-
     def print_board(self):
         """prints the board in a nice matrix"""
         print(' a  b  c')
@@ -30,18 +26,26 @@ class Game:
         pass
 
 
-    def parse_move(self):
+    def get_opponent_move(self):
         """
         '[abc][012] first column, second row'
         """
-        move = input()
+        while True:
+            print('Your move: ', end='')
+            move = input()
+            if not move:
+                raise SystemExit
+            if move not in self.GOOD_MOVES:
+                print('Illegal move')
+                continue
+            pos = self.GOOD_MOVES.index(move)
+            if self._board[pos] != ' ':
+                print('Illegal move')
+            else:
+                break
 
-        if not move or move not in self.GOOD_MOVES:
-            raise SystemExit
-        pos = self.GOOD_MOVES.index(move)
-        if self._board[pos] != ' ':
-            print('Illegal move')
-        print(move)
+        self._board[pos] = 'X'
+
 
     def check(self):
         """Check if the game is over or not"""
@@ -53,7 +57,5 @@ if __name__ == '__main__':
     print("You're Xs, I'm Os!")
     game = Game()
     while game.check():
-        print('Your move: ', end='')
-        move = game.parse_move()
-        game.play_move('x', move)
+        game.get_opponent_move()
         game.print_board()
