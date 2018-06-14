@@ -21,7 +21,7 @@ class Game:
         print(' a  b  c')
         for i in range(3):
             print('  -------')
-            print(str(i) + ' |' + '|'.join(self._board[i * 3 : i * 3 + 3]) + '|')
+            print(str(i + 1) + ' |' + '|'.join(self._board[i * 3 : i * 3 + 3]) + '|')
         print('  -------')
 
 
