@@ -49,7 +49,36 @@ class Game:
 
     def check(self):
         """Check if the game is over or not"""
-        return True
+            def check(self):
+        """Check if the game is over or not"""
+        ## status is a list of length 9 with each element as either X or O or empty
+        ## get the list of indices of X's and O's from the board
+        Xs = []
+        Xo = []
+        for i in range(9):
+            if self._board[i] == 'X':
+                Xs.append(i)
+            elif self._board[i] == 'O':
+                Xo.append(i)
+            else:
+                continue
+        
+        for winning in WINNING_COMBINATIONS:
+            # if winning is a sublist of Xs then Xs wins; if winning is a sublist of Xo then Xo wins; return False
+            # otherwise check if there is any empty spot: if ther is empty spot, return true, else return false 
+            if all([val in Xs for val in winning]):
+                print("A wins!")
+                return False
+            elif all([val in Xo for val in winning]):
+                print("B wins!")
+                return False
+            else:
+                if len(Xs) + len(Xo) < 9:                   # there are empty spots
+                    return True
+                else:
+                    print("No one wins, game ends.")
+                    return False
+        #return True
 
 
 if __name__ == '__main__':
