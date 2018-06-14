@@ -7,6 +7,8 @@ class Game:
                             (0, 3, 6),
                             (2, 5, 8),
                             (0, 1, 2)]
+    GOOD_MOVES = ['a1', 'b1', 'c1', 'a2', 'b2', 'c2', 'a3', 'b3', 'c3']
+
     def __init__(self):
         self._board = [' '] * 9
 
@@ -16,10 +18,11 @@ class Game:
 
     def print_board(self):
         """prints the board in a nice matrix"""
+        print(' a  b  c')
         for i in range(3):
-            print('-------')
-            print('|' + '|'.join(self._board[i * 3 : i * 3 + 3]) + '|')
-        print('-------')
+            print('  -------')
+            print(str(i) + ' |' + '|'.join(self._board[i * 3 : i * 3 + 3]) + '|')
+        print('  -------')
 
 
     def find_move_for_player(self, player):
@@ -32,8 +35,12 @@ class Game:
         '[abc][012] first column, second row'
         """
         move = input()
-        if not move:
+
+        if not move or move not in self.GOOD_MOVES:
             raise SystemExit
+        pos = self.GOOD_MOVES.index(move)
+        if self._board[pos] != ' ':
+            print('Illegal move')
         print(move)
 
     def check(self):
